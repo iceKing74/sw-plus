@@ -1,0 +1,52 @@
+@use 'var' as *;
+@use '../common/var.scss' as *;
+@use '../mixins/function.scss' as *;
+
+@mixin motion-switch-direction($direction) {
+  & > div:nth-child(1) {
+    transform-origin: getCssVar(
+      'motion-switch',
+      $direction,
+      'transform-origin',
+      '1'
+    );
+  }
+  & > div:nth-child(2) {
+    transform-origin: getCssVar(
+      'motion-switch',
+      $direction,
+      'transform-origin',
+      '2'
+    );
+  }
+  &:hover > div:nth-child(1) {
+    transform: getCssVar('motion-switch', $direction, 'transform', '1');
+  }
+  &:hover > div:nth-child(2) {
+    transform: getCssVar('motion-switch', $direction, 'transform', '2');
+  }
+}
+
+@mixin motion-switch-size(
+  $motion-switch-size,
+  $motion-switch-child-height,
+  $motion-switch-child-radius,
+  $motion-switch-child-angle
+) {
+  width: calc($motion-switch-size * 1.5);
+  height: $motion-switch-size;
+
+  & > div {
+    height: $motion-switch-child-height;
+    border-radius: $motion-switch-child-radius;
+  }
+
+  @include set-css-var-value(
+    'motion-switch-translate',
+    calc($motion-switch-size - $motion-switch-child-height)
+  );
+  @include set-css-var-value(
+    'motion-switch-rotate',
+    $motion-switch-child-angle
+  );
+}

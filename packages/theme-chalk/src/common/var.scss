@@ -1,0 +1,279 @@
+@use 'sass:math';
+@use 'sass:map';
+@use '../mixins/function.scss' as *;
+
+$types: primary, danger, warning, success;
+
+$colors: () !default;
+$colors: map.deep-merge(
+  (
+    'white': #ffffff,
+    'black': #000000,
+    'primary': (
+      'base': #73d1dc
+    ),
+    'danger': (
+      'base': #f46262
+    ),
+    'warning': (
+      'base': #e4c44e
+    ),
+    'success': (
+      'base': #00bc93
+    )
+  ),
+  $colors
+);
+
+$color-white: map.get($colors, 'white') !default;
+$color-black: map.get($colors, 'black') !default;
+$color-primary: map.get($colors, 'primary') !default;
+$color-danger: map.get($colors, 'danger') !default;
+$color-warning: map.get($colors, 'warning') !default;
+$color-success: map.get($colors, 'success') !default;
+
+// 根据百分比算法，会生成不同的 type 颜色等级
+// --sw-color-primary-light-i
+// 10% #73d1dc
+// 20% #8fdae3
+// 30% #9ddfe7
+// 40% #abe3ea
+// 50% #b9e8ee
+// 60% #c7edf1
+// 70% #d5f1f5
+// 80% #e3f6f8
+// 90% #f1fafc
+@mixin set-color-level(
+  $type,
+  $number,
+  $mode: 'light',
+  $mix-color: $color-white
+) {
+  $colors: map.deep-merge(
+    (
+      $type: (
+        '#{$mode}-#{$number}':
+          mix(
+            $mix-color,
+            map.get($colors, $type, 'base'),
+            math.percentage(math.div($number, 10))
+          )
+      )
+    ),
+    $colors
+  ) !global;
+}
+
+// 按照颜色集合生成各个等级颜色
+@each $type in $types {
+  @for $i from 1 through 9 {
+    @include set-color-level($type, $i, 'light', $color-white);
+  }
+}
+
+$text-color: () !default;
+$text-color: map.merge(
+  (
+    'primary': #333333,
+    'regular': #999999,
+    'disable': #c0c0cf
+  ),
+  $text-color
+);
+
+$border-color: () !default;
+$border-color: map.merge(
+  (
+    '': #bfc2c6,
+    'light': #dddfe2
+  ),
+  $border-color
+);
+
+$fill-color: () !default;
+$fill-color: map.merge(
+  (
+    '': #f0f0f0,
+    'blank': #ffffff
+  ),
+  $fill-color
+);
+
+// backgorund
+$bg-color: () !default;
+$bg-color: map.merge(
+  (
+    '': #ffffff
+  ),
+  $bg-color
+);
+
+// mask
+$mask-color: () !default;
+$mask-color: map.merge(
+  (
+    '': rgba(255, 255, 255, 0.9),
+    'undertint': rgba(255, 255, 255, 0.3)
+  ),
+  $mask-color
+);
+
+// border
+$border-width: 1px !default;
+$border-style: solid !default;
+
+$border-radius: () !default;
+$border-radius: map.merge(
+  (
+    'base': 3px
+  ),
+  $border-radius
+);
+
+$font-size: () !default;
+$font-size: map.merge(
+  (
+    'small': 12px,
+    'base': 14px,
+    'large': 19px
+  ),
+  $font-size
+);
+
+$icon-size: () !default;
+$icon-size: map.merge(
+  (
+    'small': 12px,
+    'base': 14px,
+    'large': 19px
+  ),
+  $icon-size
+);
+
+$button: () !default;
+$button: map.merge(
+  (
+    'font-weight': getCssVar('font-weight-primary'),
+    'border-color': getCssVar('border-color'),
+    'bg-color': getCssVar('bg-color'),
+    'text-color': getCssVar('text-color', 'regular'),
+    'hover-text-color': getCssVar('color-primary'),
+    'hover-border-color': getCssVar('color-primary', 'light-7'),
+    'hover-bg-color': getCssVar('color-primary', 'light-9'),
+    'active-border-color': getCssVar('color-primary'),
+    'active-bg-color': getCssVar('button', 'hover-bg-color'),
+    'disable-text-color': getCssVar('text-color', 'disable'),
+    'disable-border-color': getCssVar('border-color', 'light'),
+    'disable-bg-color': getCssVar('fill-color', 'blank')
+  ),
+  $button
+);
+
+$button-font-size: () !default;
+$button-font-size: map.merge(
+  (
+    'small': getCssVar('font-size', 'small'),
+    'default': getCssVar('font-size', 'base'),
+    'large': getCssVar('font-size', 'large')
+  ),
+  $button-font-size
+);
+
+$button-border-radius: () !default;
+$button-border-radius: map.merge(
+  (
+    'small': 3px,
+    'default': 4px,
+    'large': 6px
+  ),
+  $button-border-radius
+);
+
+$button-padding-vertial: () !default;
+$button-padding-vertial: map.merge(
+  (
+    'small': 7px,
+    'default': 14px,
+    'large': 19px
+  ),
+  $button-padding-vertial
+);
+
+$button-padding-horizontal: () !default;
+$button-padding-horizontal: map.merge(
+  (
+    'small': 4px,
+    'default': 7px,
+    'large': 9px
+  ),
+  $button-padding-horizontal
+);
+
+// 动效按钮
+$motion-switch-size: () !default;
+$motion-switch-size: map.merge(
+  (
+    'small': 10px,
+    'default': 16px,
+    'large': 32px
+  ),
+  $motion-switch-size
+);
+
+$motion-switch-child-height: () !default;
+$motion-switch-child-height: map.merge(
+  (
+    'small': 2px,
+    'default': 4px,
+    'large': 6px
+  ),
+  $motion-switch-child-height
+);
+
+$motion-switch-child-radius: () !default;
+$motion-switch-child-radius: map.merge(
+  (
+    'small': 2px,
+    'default': 3px,
+    'large': 5px
+  ),
+  $motion-switch-child-radius
+);
+
+$motion-switch-child-angle: () !default;
+$motion-switch-child-angle: map.merge(
+  (
+    'small': 52.5deg,
+    'default': 52.7deg,
+    'large': 54.4deg
+  ),
+  $motion-switch-child-angle
+);
+
+$motion-switch-direction: () !default;
+$motion-switch-direction: map.merge(
+  (
+    'up': (
+      'transform-origin-1': left bottom,
+      'transform-origin-2': right bottom,
+      'transform-1': translateY(getCssVar('motion-switch', 'translate'))
+        rotateZ(getCssVarReverse('motion-switch', 'rotate')),
+      'transform-2': rotateZ(getCssVar('motion-switch', 'rotate'))
+    ),
+    'down': (
+      'transform-origin-1': left top,
+      'transform-origin-2': right top,
+      'transform-1': rotateZ(getCssVar('motion-switch', 'rotate')),
+      'transform-2': translateY(getCssVarReverse('motion-switch', 'translate'))
+        rotateZ(getCssVarReverse('motion-switch', 'rotate'))
+    )
+    // TODO 需重新设计结构
+  // 'left': (
+  //   'transform-origin-1': right top,
+  //   'transform-origin-2': right bottom,
+  //   'transform-1': translateY(calc(getCssVarReverse('motion-switch', 'translate') / 2)) rotateZ(calc(getCssVarReverse('motion-switch', 'rotate') / 1.7)),
+  //   'transform-2': translateY(calc(getCssVar('motion-switch', 'translate') / 2)) rotateZ(calc(getCssVar('motion-switch', 'rotate') / 1.7)),
+  // )
+  ),
+  $motion-switch-direction
+);

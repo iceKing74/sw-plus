@@ -1,0 +1,260 @@
+@use './mixins/mixins.scss' as *;
+
+.#{$namespace}-icon--left {
+  margin-right: 3px;
+}
+
+.#{$namespace}-icon--right {
+  margin-left: 3px;
+}
+
+// 定义关键字 轴心旋转
+@keyframes rotating {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+@font-face {
+  font-family: 'sw-icon-icons'; /* Project id 3427531 */
+  src: url('./fonts/iconfont.woff2') format('woff2'),
+    url('./fonts/iconfont.woff') format('woff'),
+    url('./fonts/iconfont.ttf') format('truetype');
+}
+
+[class^='#{$namespace}-icon'],
+[class*='#{$namespace}-icon'] {
+  display: inline-block;
+  font-family: 'sw-icon-icons' !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @include when(loading) {
+    animation: rotating 2s linear infinite;
+  }
+}
+
+.#{$namespace}-icon-arrow-right:before {
+  content: '\ed4e';
+}
+
+.#{$namespace}-icon-arrow-left:before {
+  content: '\ed4f';
+}
+
+.#{$namespace}-icon-arrow-down:before {
+  content: '\ed50';
+}
+
+.#{$namespace}-icon-bell:before {
+  content: '\ed51';
+}
+
+.#{$namespace}-icon-bottom-left:before {
+  content: '\ed52';
+}
+
+.#{$namespace}-icon-caret-right:before {
+  content: '\ed53';
+}
+
+.#{$namespace}-icon-caret-top:before {
+  content: '\ed54';
+}
+
+.#{$namespace}-icon-arrow-up:before {
+  content: '\ed55';
+}
+
+.#{$namespace}-icon-caret-left:before {
+  content: '\ed56';
+}
+
+.#{$namespace}-icon-close:before {
+  content: '\ed57';
+}
+
+.#{$namespace}-icon-circle-check:before {
+  content: '\ed58';
+}
+
+.#{$namespace}-icon-caret-bottom:before {
+  content: '\ed59';
+}
+
+.#{$namespace}-icon-bottom:before {
+  content: '\ed5a';
+}
+
+.#{$namespace}-icon-bottom-right:before {
+  content: '\ed5b';
+}
+
+.#{$namespace}-icon-back:before {
+  content: '\ed5c';
+}
+
+.#{$namespace}-icon-circle-plus-outline:before {
+  content: '\ed5d';
+}
+
+.#{$namespace}-icon-delete-solid:before {
+  content: '\ed5e';
+}
+
+.#{$namespace}-icon-d-arrow-right:before {
+  content: '\ed5f';
+}
+
+.#{$namespace}-icon-copy-document:before {
+  content: '\ed60';
+}
+
+.#{$namespace}-icon-download:before {
+  content: '\ed61';
+}
+
+.#{$namespace}-icon-d-arrow-left:before {
+  content: '\ed62';
+}
+
+.#{$namespace}-icon-circle-close:before {
+  content: '\ed63';
+}
+
+.#{$namespace}-icon-check:before {
+  content: '\ed64';
+}
+
+.#{$namespace}-icon-edit:before {
+  content: '\ed65';
+}
+
+.#{$namespace}-icon-hide:before {
+  content: '\ed66';
+}
+
+.#{$namespace}-icon-folder-add:before {
+  content: '\ed67';
+}
+
+.#{$namespace}-icon-delete:before {
+  content: '\ed68';
+}
+
+.#{$namespace}-icon-document-copy:before {
+  content: '\ed69';
+}
+
+.#{$namespace}-icon-loading:before {
+  content: '\ed6a';
+}
+
+.#{$namespace}-icon-key:before {
+  content: '\ed6b';
+}
+
+.#{$namespace}-icon-full-screen:before {
+  content: '\ed6c';
+}
+
+.#{$namespace}-icon-close-notification:before {
+  content: '\ed6d';
+}
+
+.#{$namespace}-icon-folder-checked:before {
+  content: '\ed6e';
+}
+
+.#{$namespace}-icon-error:before {
+  content: '\ed6f';
+}
+
+.#{$namespace}-icon-minus:before {
+  content: '\ed70';
+}
+
+.#{$namespace}-icon-plus:before {
+  content: '\ed71';
+}
+
+.#{$namespace}-icon-lock:before {
+  content: '\ed72';
+}
+
+.#{$namespace}-icon-picture:before {
+  content: '\ed73';
+}
+
+.#{$namespace}-icon-folder-delete:before {
+  content: '\ed74';
+}
+
+.#{$namespace}-icon-refresh:before {
+  content: '\ed75';
+}
+
+.#{$namespace}-icon-refresh-left:before {
+  content: '\ed76';
+}
+
+.#{$namespace}-icon-menu:before {
+  content: '\ed77';
+}
+
+.#{$namespace}-icon-right:before {
+  content: '\ed78';
+}
+
+.#{$namespace}-icon-s-fold:before {
+  content: '\ed79';
+}
+
+.#{$namespace}-icon-view:before {
+  content: '\ed7a';
+}
+
+.#{$namespace}-icon-user-solid:before {
+  content: '\ed7b';
+}
+
+.#{$namespace}-icon-user:before {
+  content: '\ed7c';
+}
+
+.#{$namespace}-icon-top-left:before {
+  content: '\ed7d';
+}
+
+.#{$namespace}-icon-top-right:before {
+  content: '\ed7e';
+}
+
+.#{$namespace}-icon-warning-outline:before {
+  content: '\ed7f';
+}
+
+.#{$namespace}-icon-upload2:before {
+  content: '\ed80';
+}
+
+.#{$namespace}-icon-zoom-out:before {
+  content: '\ed81';
+}
+
+.#{$namespace}-icon-warning:before {
+  content: '\ed82';
+}
+
+.#{$namespace}-icon-zoom-in:before {
+  content: '\ed83';
+}
+
+.#{$namespace}-icon-unlock:before {
+  content: '\ed84';
+}

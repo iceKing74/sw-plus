@@ -1,0 +1,46 @@
+/**
+ * 声明公共scss方法
+ */
+
+// 引入config
+@use 'config' as *;
+@use 'function' as *;
+@use '../common/var.scss' as *;
+
+// 将config暴露给全局使用
+@forward 'config';
+@forward 'function';
+@forward '_var';
+
+// Block 构造器
+@mixin b($block) {
+  $B: $namespace + '-' + $block !global; // !global 全局声明
+
+  // @content 理解为一个插槽，使用mixin加入不同内容
+  .#{$B} {
+    @content;
+  }
+}
+
+// Modifier 构造器
+@mixin m($modifier) {
+  $selector: &;
+  $currentSelector: '';
+  @each $item in $modifier {
+    $currentSelector: #{$currentSelector +
+      $selector +
+      $modifier-sparator +
+      $item +
+      ','};
+  }
+
+  @at-root #{$currentSelector} {
+    @content;
+  }
+}
+
+@mixin when($state) {
+  @at-root &.#{$state-prefix + $state} {
+    @content;
+  }
+} ;

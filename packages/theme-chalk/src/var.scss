@@ -1,0 +1,36 @@
+@use 'sass:map';
+
+@use 'common/var' as *;
+@use 'mixins/var' as *;
+@use 'mixins/function' as *;
+
+// 公共 CSS 变量
+:root {
+  @include set-css-var-value('color-white', $color-white);
+  @include set-css-var-value('color-black', $color-black);
+
+  @include set-component-css-var('font-size', $font-size);
+  @include set-component-css-var('icon-size', $icon-size);
+  @include set-css-var-value('font-weight-primary', 500);
+}
+
+// 高亮 CSS 变量
+:root {
+  @each $type in (primary, danger, warning, success) {
+    @include set-css-color-type($colors, $type);
+  }
+
+  @include set-component-css-var('text-color', $text-color);
+  @include set-component-css-var('bg-color', $bg-color);
+  @include set-component-css-var('border-color', $border-color);
+  @include set-component-css-var('fill-color', $fill-color);
+  @include set-component-css-var('mask-color', $mask-color);
+
+  @include set-css-var-value('border-width', $border-width);
+  @include set-css-var-value('border-style', $border-style);
+  @include set-css-var-value(
+    'border',
+    getCssVar('border-width') getCssVar('border-style')
+      getCssVar('border-color')
+  );
+}

@@ -1,0 +1,136 @@
+@use 'var' as *;
+
+@mixin button-plain($type) {
+  $button-color-type: (
+    '': (
+      'text-color': (
+        'color',
+        $type
+      ),
+      'border-color': (
+        'color',
+        $type,
+        'light-5'
+      ),
+      'bg-color': (
+        'color',
+        $type,
+        'light-9'
+      )
+    ),
+    'hover': (
+      'text-color': (
+        'color',
+        'white'
+      ),
+      'border-color': (
+        'color',
+        $type,
+        'light-3'
+      ),
+      'bg-color': (
+        'color',
+        $type,
+        'light-3'
+      )
+    ),
+    'active': (
+      'text-color': (
+        'color',
+        'white'
+      )
+    )
+  );
+
+  @each $type, $Map in $button-color-type {
+    @each $attr, $list in $Map {
+      @include css-var-from-global(('button', $type, $attr), $list);
+    }
+  }
+}
+
+@mixin button-variant($type) {
+  $button-color-types: (
+    '': (
+      'text-color': (
+        'color',
+        'white'
+      ),
+      'border-color': (
+        'color',
+        $type
+      ),
+      'bg-color': (
+        'color',
+        $type
+      )
+    ),
+    'hover': (
+      'text-color': (
+        'color',
+        'white'
+      ),
+      'border-color': (
+        'color',
+        $type,
+        'light-3'
+      ),
+      'bg-color': (
+        'color',
+        $type,
+        'light-3'
+      )
+    ),
+    'active': (
+      'text-color': (
+        'color',
+        'white'
+      ),
+      'border-color': (
+        'color',
+        $type
+      ),
+      'bg-color': (
+        'color',
+        $type
+      )
+    ),
+    'disable': (
+      'text-color': (
+        'color',
+        'white'
+      ),
+      'border-color': (
+        'color',
+        $type,
+        'light-5'
+      ),
+      'bg-color': (
+        'color',
+        $type,
+        'light-5'
+      )
+    )
+  );
+  // 构造不同类型的样式
+  @each $type, $Map in $button-color-types {
+    @each $attr, $list in $Map {
+      @include css-var-from-global(('button', $type, $attr), $list);
+    }
+  }
+
+  &.is-plain {
+    @include button-plain($type);
+  }
+}
+
+@mixin button-size(
+  $button-padding-vertial,
+  $button-padding-horizontal,
+  $font-size,
+  $border-radius
+) {
+  padding: $button-padding-horizontal $button-padding-vertial;
+  font-size: $font-size;
+  border-radius: $border-radius;
+}

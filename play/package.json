@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "name": "@sw-play/play",
+  "scripts": {
+    "dev": "vite"
+  },
+  "author": "SW",
+  "license": "ISC",
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.3",
+    "vite": "^2.9.9",
+    "sass": "^1.52.1"
+  }
+}

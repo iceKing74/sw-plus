@@ -1,0 +1,30 @@
+@use 'config';
+
+// 生成样式变量名
+// ('button', 'text-color') => --sw-button-text-color
+@function creatVarName($list) {
+  $name: '--' + config.$namespace;
+  @each $item in $list {
+    @if $item != '' {
+      $name: $name + '-' + $item;
+    }
+  }
+  @return $name;
+}
+
+// 获取 CSS 样式变量名
+// ('button', 'text-color') => --sw-button-text-color
+@function getCssVarName($args...) {
+  @return creatVarName($args);
+}
+
+// 转化成个 CSS 样式变量<IE浏览器不太支持>
+// ('button', 'text-color') => var('--sw-button-text-color)
+@function getCssVar($args...) {
+  @return var(#{creatVarName($args)});
+}
+
+// 取反结果
+@function getCssVarReverse($args...) {
+  @return calc(-1 * getCssVar($args...));
+}

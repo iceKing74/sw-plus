@@ -1,0 +1,113 @@
+@use 'sass:map';
+
+@use 'common/var' as *;
+@use 'mixins/var' as *;
+@use 'mixins/mixins' as *;
+@use 'mixins/button' as *;
+
+@include b(button) {
+  @include set-component-css-var('button', $button);
+}
+
+@include b(button) {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: getCssVar('button', 'font-weight');
+  color: getCssVar('button', 'text-color');
+  transition: 0.3s;
+  border: getCssVar('border');
+  background-color: getCssVar('button', 'bg-color');
+  border-color: getCssVar('button', 'border-color');
+
+  &:hover {
+    color: getCssVar('button', 'hover', 'text-color');
+    border-color: getCssVar('button', 'hover', 'border-color');
+    background-color: getCssVar('button', 'hover', 'bg-color');
+    outline: none;
+  }
+
+  &:active {
+    border-color: getCssVar('button', 'active', 'border-color');
+    background-color: getCssVar('button', 'active', 'bg-color');
+  }
+
+  > span {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  & + & {
+    margin-left: 9px;
+  }
+
+  @include button-size(
+    map.get($button-padding-vertial, 'default'),
+    map.get($button-padding-horizontal, 'default'),
+    map.get($button-font-size, 'default'),
+    map.get($button-border-radius, 'default')
+  );
+
+  & [class*='#{$namespace}-icon'] {
+    & + span {
+      margin-left: 5px;
+    }
+    vertical-align: bottom;
+  }
+
+  @include when(disable) {
+    &,
+    &:hover &:active {
+      color: getCssVar('button', 'disable', 'text-color');
+      background-color: getCssVar('button', 'disable', 'bg-color');
+      border-color: getCssVar('button', 'disable', 'border-color');
+
+      cursor: not-allowed;
+    }
+  }
+
+  @include when(loading) {
+    pointer-events: none;
+    position: relative;
+
+    &::before {
+      z-index: 1;
+      content: '';
+      position: absolute;
+      top: -1px;
+      bottom: -1px;
+      left: -1px;
+      right: -1px;
+      border-radius: inherit;
+      background-color: getCssVar('mask-color', 'undertint');
+    }
+  }
+
+  @include when(plain) {
+    @include css-var-from-global(
+      ('button', 'hover', 'bg-color'),
+      ('fill-color', 'blank')
+    );
+  }
+
+  @each $type in (primary, danger, warning, success) {
+    @include m($type) {
+      @include button-variant($type);
+    }
+  }
+
+  @each $size in (small, large) {
+    @include m($size) {
+      @include button-size(
+        map.get($button-padding-vertial, $size),
+        map.get($button-padding-horizontal, $size),
+        map.get($button-font-size, $size),
+        map.get($button-border-radius, $size)
+      );
+
+      & [class*='#{$namespace}-icon'] {
+        font-size: getCssVar('icon-size', $size);
+      }
+    }
+  }
+} ;

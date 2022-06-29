@@ -1,0 +1,11 @@
+{
+  "name": "@sw-plus/utils",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "gulp"
+  },
+  "author": "sw",
+  "license": "ISC"
+}

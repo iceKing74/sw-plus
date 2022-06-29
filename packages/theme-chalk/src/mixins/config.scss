@@ -1,0 +1,9 @@
+$namespace: 'sw' !default;
+$modifier-sparator: '--' !default;
+$state-prefix: 'is-' !default;
+
+// 命名规范 BEM规范  for expamle
+// <div class="sw-cell">
+//     <div class="sw-cell__label"></div>
+//     <div class="sw-cell__value is_check"></div>
+// </div>

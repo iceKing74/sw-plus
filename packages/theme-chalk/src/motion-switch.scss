@@ -1,0 +1,46 @@
+@use 'sass:map';
+
+@use 'common/var.scss' as *;
+@use 'mixins/mixins.scss' as *;
+@use 'mixins/motion-switch' as *;
+
+@include b(motion-switch) {
+  // sw-motion-switch --up
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  & > div {
+    background-color: #ccc;
+    transition: transform 0.6s ease;
+  }
+
+  // 注册动效开关特有 css 变量
+  @each $direction, $attr in $motion-switch-direction {
+    @include set-component-css-var('motion-switch-#{$direction}', $attr);
+  }
+
+  @include motion-switch-size(
+    map.get($motion-switch-size, 'default'),
+    map.get($motion-switch-child-height, 'default'),
+    map.get($motion-switch-child-radius, 'default'),
+    map.get($motion-switch-child-angle, 'default')
+  );
+
+  @each $direction in (up, down, left) {
+    @include m($direction) {
+      @include motion-switch-direction($direction);
+    }
+  }
+
+  @each $size in (small, large) {
+    @include m($size) {
+      @include motion-switch-size(
+        map.get($motion-switch-size, $size),
+        map.get($motion-switch-child-height, $size),
+        map.get($motion-switch-child-radius, $size),
+        map.get($motion-switch-child-angle, $size)
+      );
+    }
+  }
+}

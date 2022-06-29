@@ -1,0 +1,11 @@
+{
+  "name": "@sw-plus/components",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "gulp"
+  },
+  "author": "sw",
+  "license": "ISC"
+}
