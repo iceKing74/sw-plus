@@ -210,6 +210,20 @@ $button-padding-horizontal: map.merge(
 );
 
 // 动效按钮
+$motion-switch: () !default;
+$motion-switch: map.merge(
+  (
+    'bg-color': getCssVar('border-color'),
+    'hover-bg-color': getCssVar('border-color', 'light'),
+    'active-bg-color': getCssVar('fill', 'color'),
+    'disable-bg-color': getCssVar('border-color', 'light'),
+    'dark-bg-color': getCssVar('bg-color'),
+    'dark-hover-bg-color': getCssVar('border-color'),
+    'dark-active-bg-color': getCssVar('border-color', 'light')
+  ),
+  $motion-switch
+);
+
 $motion-switch-size: () !default;
 $motion-switch-size: map.merge(
   (
@@ -250,6 +264,7 @@ $motion-switch-child-angle: map.merge(
   $motion-switch-child-angle
 );
 
+// TODO 变量设计不合理，优化需重新设计结构
 $motion-switch-direction: () !default;
 $motion-switch-direction: map.merge(
   (
@@ -266,14 +281,27 @@ $motion-switch-direction: map.merge(
       'transform-1': rotateZ(getCssVar('motion-switch', 'rotate')),
       'transform-2': translateY(getCssVarReverse('motion-switch', 'translate'))
         rotateZ(getCssVarReverse('motion-switch', 'rotate'))
+    ),
+    'left': (
+      'transform-origin-1': right top,
+      'transform-origin-2': right bottom,
+      'transform-1':
+        translateY(calc(getCssVarReverse('motion-switch', 'translate') / 2))
+        rotateZ(calc(getCssVarReverse('motion-switch', 'rotate') / 1.5)),
+      'transform-2':
+        translateY(calc(getCssVar('motion-switch', 'translate') / 2))
+        rotateZ(calc(getCssVar('motion-switch', 'rotate') / 1.5))
+    ),
+    'right': (
+      'transform-origin-1': left top,
+      'transform-origin-2': left bottom,
+      'transform-1':
+        translateY(calc(getCssVarReverse('motion-switch', 'translate') / 2))
+        rotateZ(calc(getCssVar('motion-switch', 'rotate') / 1.5)),
+      'transform-2':
+        translateY(calc(getCssVar('motion-switch', 'translate') / 2))
+        rotateZ(calc(getCssVarReverse('motion-switch', 'rotate') / 1.5))
     )
-    // TODO 需重新设计结构
-  // 'left': (
-  //   'transform-origin-1': right top,
-  //   'transform-origin-2': right bottom,
-  //   'transform-1': translateY(calc(getCssVarReverse('motion-switch', 'translate') / 2)) rotateZ(calc(getCssVarReverse('motion-switch', 'rotate') / 1.7)),
-  //   'transform-2': translateY(calc(getCssVar('motion-switch', 'translate') / 2)) rotateZ(calc(getCssVar('motion-switch', 'rotate') / 1.7)),
-  // )
   ),
   $motion-switch-direction
 );

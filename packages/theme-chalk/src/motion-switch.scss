@@ -5,19 +5,37 @@
 @use 'mixins/motion-switch' as *;
 
 @include b(motion-switch) {
-  // sw-motion-switch --up
+  @include set-component-css-var('motion-switch', $motion-switch);
+}
+
+@include b(motion-switch) {
   display: inline-flex;
   flex-direction: column;
   justify-content: space-between;
+  cursor: pointer;
 
   & > div {
-    background-color: #ccc;
+    background-color: getCssVar('motion-switch', 'bg-color');
     transition: transform 0.6s ease;
+  }
+
+  &:hover > div {
+    background-color: getCssVar('motion-switch', 'hover', 'bg-color');
+  }
+
+  &:active > div {
+    background-color: getCssVar('motion-switch', 'active', 'bg-color');
   }
 
   // 注册动效开关特有 css 变量
   @each $direction, $attr in $motion-switch-direction {
     @include set-component-css-var('motion-switch-#{$direction}', $attr);
+  }
+
+  @each $type in (primary, danger, warning, success) {
+    @include m($type) {
+      @include motion-switch-variant($type);
+    }
   }
 
   @include motion-switch-size(
@@ -27,7 +45,7 @@
     map.get($motion-switch-child-angle, 'default')
   );
 
-  @each $direction in (up, down, left) {
+  @each $direction in (up, down, left, right) {
     @include m($direction) {
       @include motion-switch-direction($direction);
     }
@@ -40,6 +58,41 @@
         map.get($motion-switch-child-height, $size),
         map.get($motion-switch-child-radius, $size),
         map.get($motion-switch-child-angle, $size)
+      );
+    }
+  }
+
+  @include when(disable) {
+    & > div,
+    &:hover > div,
+    &:active > div {
+      background-color: getCssVar(
+        'motion-switch',
+        'disable',
+        'bg-color'
+      ) !important;
+      transform: none;
+    }
+    cursor: not-allowed;
+  }
+
+  // TODO dark 可以抽离到一个单独文件中，统一处理 dark 情况
+  @include when(dark) {
+    & > div {
+      background-color: getCssVar('motion-switch', 'dark', 'bg-color');
+      transition: transform 0.6s ease;
+    }
+
+    &:hover > div {
+      background-color: getCssVar('motion-switch', 'dark', 'hover', 'bg-color');
+    }
+
+    &:active > div {
+      background-color: getCssVar(
+        'motion-switch',
+        'dark',
+        'active',
+        'bg-color'
       );
     }
   }

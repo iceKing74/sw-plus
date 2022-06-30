@@ -16,6 +16,10 @@ export const motionSwitchProps = {
   disable: {
     type: Boolean,
     default: false
+  },
+  dark: {
+    type: Boolean,
+    default: false
   }
 };
 

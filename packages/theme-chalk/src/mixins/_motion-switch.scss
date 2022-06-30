@@ -27,6 +27,44 @@
   }
 }
 
+@mixin motion-switch-variant($type) {
+  $motion-switch-types: (
+    '': (
+      'bg-color': (
+        'color',
+        $type
+      )
+    ),
+    'hover': (
+      'bg-color': (
+        'color',
+        $type,
+        'light-3'
+      )
+    ),
+    'active': (
+      'bg-color': (
+        'color',
+        $type,
+        'light-7'
+      )
+    ),
+    'disable': (
+      'bg-color': (
+        'color',
+        $type,
+        'light-5'
+      )
+    )
+  );
+
+  @each $type, $Map in $motion-switch-types {
+    @each $attr, $list in $Map {
+      @include css-var-from-global(('motion-switch', $type, $attr), $list);
+    }
+  }
+}
+
 @mixin motion-switch-size(
   $motion-switch-size,
   $motion-switch-child-height,

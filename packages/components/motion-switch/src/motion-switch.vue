@@ -5,7 +5,8 @@
       ns.m(type),
       ns.m(size),
       ns.m(direction),
-      ns.is('disable', disable)
+      ns.is('disable', disable),
+      ns.is('dark', drak)
     ]"
   >
     <div></div>
@@ -27,13 +28,15 @@ export default defineComponent({
     const disable = useDisable();
     const size = computed(() => props.size);
     const direction = computed(() => props.direction);
+    const drak = computed(() => props.dark);
 
     return {
       ns,
       type,
       disable,
       size,
-      direction
+      direction,
+      drak
     };
   }
 });
